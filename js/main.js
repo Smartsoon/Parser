@@ -15,6 +15,10 @@ window.onload = function () {
 };
 
 searchBtn.addEventListener('click', searching);
+
+filterDateFrom.onchange = function dateToActive() {
+    filterDateTo.removeAttribute('disabled');
+};
 //#endregion
 
 //region Handlers
@@ -23,7 +27,7 @@ function handleFileSelect(evt) {
     if (!file.type.match('.')) {
         return alert(file.name + " is not a valid text file.");
     }
-    if (file.size === 0) {
+    if (file.size < 4) {
         alert('Меня пустые файлы не интересуют!');
         return;
     }
@@ -49,8 +53,8 @@ function searching() {
         alert('Прежде, чем нажимать на меня, сначала ввел бы что-то в поле поиска...');
         return;
     }
-    if (filterDateFrom.value.length <= 0) {
-        alert('Ну ты чего? Выбери дату, начиная с которой будем искать...');
+    if (filterDateFrom.value.length > filterDateTo.value.length) {
+        alert('Выбраны не все даты');
         return;
     }
     let searchedText = searchArea.value;
@@ -84,10 +88,15 @@ function FormatDate(selectedDate) {
 }
 
 function GetContentByTime(sArray, selectedDateFrom, selectedDateTo) {
-	let resultArray = new Array();
-	for(let i = 0; i < sArray.length; i++) {
-        if (sArray[i].date >= selectedDateFrom && sArray[i].date <= selectedDateTo) resultArray.push(sArray[i].content);
-	} return resultArray;
+    var resultArray = new Array();
+    if (isNaN(selectedDateFrom) && isNaN(selectedDateTo)) {
+        for (var i = 0; i < sArray.length; i++) {
+            resultArray.push(sArray[i].content);
+        }
+    } else {
+        for (var i = 0; i < sArray.length; i++) {
+            if (sArray[i].date >= selectedDateFrom && sArray[i].date <= selectedDateTo) resultArray.push(sArray[i].content);
+        }} return resultArray;
 }
 //#endregion
 
