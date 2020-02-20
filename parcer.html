@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parser</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="nav">
+        <input type="file" class="nav-elements" id="file" name="file" />
+
+        <div class="dates">
+            <input class="date-filter-from nav-elements" type="date" name="calendar" min="" max="">
+
+            <input class="date-filter-to nav-elements" type="date" name="calendar" min="" max="">
+
+            <input placeholder="Введите текст" class="search-log nav-elements" type="search">
+        </div>
+        <div>
+            <button disabled="disabled" class="search-btn nav-elements">Получить совпадения</button>
+
+            <input class="count nav-elements" type="text">
+        </div>
+
+    </div>
+
+    <div class="txt-area">
+        <textarea readonly id="output"></textarea>
+    </div>
+</body>
+<script src="js/main.js"></script>
+</html>
