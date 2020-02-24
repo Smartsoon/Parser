@@ -37,11 +37,12 @@ function handleFileSelect(evt) {
         textToArray = reader.result.split("\n").map(function(x){return x.split("]]")});
         for (let i = 0; i < textToArray.length; i++) {
             textToArray[i] = {
-                date: toStamp(textToArray[i].map(function(x){return x.slice(1, 11)})),
+                date: toStamp(textToArray[i].map(function(x){return x.slice(4, 6) + '/' + x.slice(1, 3) + '/' + x.slice(7, 11)})),
                 content: textToArray[i].map(function(x){return x.slice(18)})
             }
         }
         searchBtn.removeAttribute('disabled');
+
     };
     reader.addEventListener('load', function (e) {
              output.textContent = e.target.result;
@@ -68,6 +69,7 @@ function searching() {
 //#region Utils
 function toStamp(whatToStamp) {
     let datum = Date.parse(whatToStamp);
+
     return datum/1000;
 }
 
@@ -84,17 +86,18 @@ function GetItems(textFromArray, findtext) {
 function FormatDate(selectedDate) {
 	let date;
 	date = selectedDate.split('-');
-	return date[2] + '/' + date[1] + '/' + date[0];
+	return date[1] + '/' + date[2] + '/' + date[0];
 }
+
 
 function GetContentByTime(sArray, selectedDateFrom, selectedDateTo) {
     var resultArray = new Array();
     if (isNaN(selectedDateFrom) && isNaN(selectedDateTo)) {
-        for (var i = 0; i < sArray.length; i++) {
+        for (let i = 0; i < sArray.length; i++) {
             resultArray.push(sArray[i].content);
         }
     } else {
-        for (var i = 0; i < sArray.length; i++) {
+        for (let i = 0; i < sArray.length; i++) {
             if (sArray[i].date >= selectedDateFrom && sArray[i].date <= selectedDateTo) resultArray.push(sArray[i].content);
         }} return resultArray;
 }
