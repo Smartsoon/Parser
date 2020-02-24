@@ -1,4 +1,3 @@
-
 //#region Global variables
 let textToArray = [];
 const output = document.querySelector("#output");
